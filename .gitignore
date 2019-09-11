@@ -1,0 +1,6 @@
+.vagrant/
+.vscode/
+*.replay
+*.org
+hosts*
+**/*_rsa*

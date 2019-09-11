@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Check variables
+      debug:
+        var: hostvars
+    - name: Install EPEL repository
+      yum:
+        name: epel-release
+        state: latest
+    - name: Install Docker
+      yum:
+        name: 
+          - docker
+          - docker-compose
+        state: present
+      notify:
+        - start docker
+    - name: Ensure ntpd is at the latest version
+      yum: 
+        name: ntp 
+        state: latest
+      notify:
+      - restart ntpd
+  handlers:
+    - name: restart ntpd
+      service: 
+        name: ntpd 
+        state: restarted
+    - name: start docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
