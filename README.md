@@ -1,10 +1,10 @@
-# Install and run a virtual machine on your host
+# Vagrant Single
+
+Install and run a virtual machine on your host
 
 The installation can be used for local development or testing.
-
 Please change the parameter in Vagrantfile to suit your needs.
-
-This script will install 1 virtual machine with Ansible and docker
+This script will install 1 virtual machine with Ansible and Docker
 provisioned.
 
 ## Vagrant
