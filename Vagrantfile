@@ -21,15 +21,18 @@
 # what you're doing!
 VAGRANTFILE_API_VERSION = '2'.freeze
 
-# Machine prefix, can be the local hostname or the linux flavour used.
-VM_PREFIX = 'centos'.freeze
+# If you have more machines use a descriptive name.
 VM_NAME = 'DevOps'.freeze
 
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 
-# This Vagrant file is build for CentOs. You can use as another Linux 
-# flavour.
-BOX = 'centos/7'.freeze
+# CentOs
+# BOX = 'centos/7'.freeze
+# VM_PREFIX = 'centos'.freeze
+
+# Ubuntu 
+BOX = 'ubuntu/bionic64'.freeze
+VM_PREFIX = 'ubuntu'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
 PROVIDER = 'VirtualBox'.freeze
