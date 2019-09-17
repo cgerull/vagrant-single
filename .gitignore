@@ -4,3 +4,4 @@
 *.org
 hosts*
 **/*_rsa*
+**/*.log
