@@ -1,0 +1,29 @@
+---
+# Local servers
+# Use them when developing without a cooperate 
+# environment.
+# Comment out if you have anything better.
+#
+version: '3'
+services:
+    # GitLab server when no external is available
+    gitlab:
+      image: gitlab/gitlab-ce:latest
+      restart: 'no'
+      hostname: 'gitlab.centos-DevOps'
+      container_name: 'gitlab'
+      environment:
+        GITLAB_OMNIBUS_CONFIG: |
+          external_url 'http://gitlab.centos-DevOps'
+          gitlab_rails['gitlab_shell_ssh_port'] = 2200
+      ports:
+        - '443:443'
+        - '8080:80'
+        - '2200:22'
+      volumes:
+        - /home/vagrant/gitlab/etc:/etc/gitlab:z
+        - /home/vagrant/gitlab/logs:/var/log/gitlab:z
+        - /home/vagrant/gitlab/data:/var/opt/gitlab:z
+        - /home/vagrant/gitlab/repos:/tmp/repos:z
+    # RabbitMQ server for testing
+    # Graphite monitoring server

@@ -27,12 +27,12 @@ VM_NAME = 'DevOps'.freeze
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 
 # CentOs
-# BOX = 'centos/7'.freeze
-# VM_PREFIX = 'centos'.freeze
+BOX = 'centos/7'.freeze
+VM_PREFIX = 'centos'.freeze
 
 # Ubuntu 
-BOX = 'ubuntu/bionic64'.freeze
-VM_PREFIX = 'ubuntu'.freeze
+# BOX = 'ubuntu/bionic64'.freeze
+# VM_PREFIX = 'ubuntu'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
 PROVIDER = 'VirtualBox'.freeze
@@ -53,8 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.box = BOX.to_s
     node.vm.hostname = "#{VM_PREFIX}-#{VM_NAME}"
     # Set IP address for VirtualBox machines
-    node.vm.network 'private_network', ip: "#{VM_IP_ADDRESS}", virtualbox__intnet: true
-    node.vm.provision :hosts, :sync_hosts => true
+    node.vm.network 'private_network', ip: VM_IP_ADDRESS.to_s
     node.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
 
     node.vm.provider 'virtualbox' do |vb|
