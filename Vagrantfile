@@ -7,7 +7,7 @@
 # Naming suggestions:
 # <name>-app          -> this is the application server
 # <name>-db           -> a separate database server
-# <name>-controller -> control server, is provisioned 
+# <name>-controller -> control server, is provisioned
 #               with Ansible and Git. Should be used for
 #               automation of this environment
 #
@@ -30,7 +30,7 @@ VM_IP_ADDRESS = '192.168.56.100'.freeze
 BOX = 'centos/7'.freeze
 VM_PREFIX = 'centos'.freeze
 
-# Ubuntu 
+# Ubuntu
 # BOX = 'ubuntu/bionic64'.freeze
 # VM_PREFIX = 'ubuntu'.freeze
 
