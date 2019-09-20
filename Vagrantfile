@@ -34,7 +34,7 @@ VM_PREFIX = 'centos'.freeze
 # VM_PREFIX = 'ubuntu'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
-#PROVIDER = 'VirtualBox'.freeze
+# PROVIDER = 'VirtualBox'.freeze
 PROVIDER = 'hyperv'.freeze
 
 #############################################################################
@@ -66,6 +66,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.cpus = '2'
       vb.name = "#{VM_PREFIX}-#{VM_NAME}"
       vb.gui = false
+    end
+
+    config.vm.provider "hyperv" do |hv|
+      hv.memory = '4096'
+      hv.cpus = '4'
+      hv.enable_virtualization_extensions = true
+      hv.linked_clone = true
     end
 
     # Hyper-V needs SMB2
