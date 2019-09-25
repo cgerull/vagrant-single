@@ -1,11 +1,11 @@
     - name: Install EPEL repository
       yum:
         name: epel-release
-        state: latest
+        state: present
     - name: Install IUS community repository
       yum:
         name: https://centos7.iuscommunity.org/ius-release.rpm
-        state: latest
+        state: present
     - name: Deinstall CentOS Git
       yum:
         name: git
@@ -16,15 +16,15 @@
         state: present
     - name: Install Docker
       yum:
-        name: 
+        name:
           - docker
           - docker-compose
         state: present
       notify:
         - start docker
     - name: Ensure ntpd is at the latest version
-      yum: 
-        name: ntp 
-        state: latest
+      yum:
+        name: ntp
+        state: present
       notify:
       - restart ntpd
