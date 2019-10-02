@@ -1,11 +1,21 @@
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: latest
     - name: Install EPEL repository
       yum:
         name: epel-release
-        state: latest
+        state: present
+    - name: Add Docker CE repository (Fedora/CentOS/RedHat)
+      become: true
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        mode: 0644
     - name: Install IUS community repository
       yum:
         name: https://centos7.iuscommunity.org/ius-release.rpm
-        state: latest
+        state: present
     - name: Deinstall CentOS Git
       yum:
         name: git
@@ -17,14 +27,14 @@
     - name: Install Docker
       yum:
         name: 
-          - docker
+          - docker-ce
           - docker-compose
         state: present
       notify:
         - start docker
-    - name: Ensure ntpd is at the latest version
+    - name: Ensure ntpd is installed
       yum: 
         name: ntp 
-        state: latest
+        state: present
       notify:
       - restart ntpd

@@ -26,4 +26,17 @@ services:
         - /home/vagrant/gitlab/data:/var/opt/gitlab:z
         - /home/vagrant/gitlab/repos:/tmp/repos:z
     # RabbitMQ server for testing
+    rabbitmq:
+      image: cgerull/rbmq-image:latest
+      restart: 'always'
+      hostname: rbmq.centos-DevOps
+      container_name: rbmq
+    # MariaDB server for testing
+    mariadb:
+      image: cgerull/mariadb-image:latest
+      restart: 'always'
+      hostname: mariadb.centos-DevOps
+      container_name: mariadb
+      environment:
+        - MYSQL_ROOT_PASSWORD=P@ssw0rd
     # Graphite monitoring server
