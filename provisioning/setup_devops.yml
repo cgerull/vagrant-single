@@ -10,11 +10,11 @@
     - name: Include Debian / Ubuntu specific tasks
       include_tasks: debian_tasks.yml
       when:
-        - ansible_os_family == "Debian"  
+        - ansible_os_family == "Debian"
   handlers:
     - name: restart ntpd
-      service: 
-        name: ntpd 
+      service:
+        name: ntpd
         state: restarted
     - name: start docker
       service:

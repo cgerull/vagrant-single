@@ -1,0 +1,14 @@
+# CI for ansible roles
+# 
+# Perform checks on ansible roles.
+#
+stages:
+  - lint-playbook
+
+lint-playbook:
+  stage: lint-playbook
+  image: cgerull/ansible_linter:2.0.1
+  script:
+    - echo "Run ansible-lint on playbook and contents."
+    - pwd; ls -l
+    - ansible-lint -vv provisioning/setup_devops.yml
