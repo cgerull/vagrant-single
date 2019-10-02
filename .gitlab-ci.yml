@@ -11,4 +11,4 @@ lint-playbook:
   script:
     - echo "Run ansible-lint on playbook and contents."
     - pwd; ls -l
-    - ansible-lint -vv provisioning/setup_devops.yml
+    - ansible-lint  provisioning/setup_devops.yml
