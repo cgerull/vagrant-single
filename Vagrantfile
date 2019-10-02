@@ -42,7 +42,7 @@ PROVIDER = 'hyperv'.freeze
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Hostmanager settings
   # Enable Hostmanager when running on Hyper-V
-  config.hostmanager.enabled = false
+  config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = true
@@ -58,8 +58,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # node.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
 
     # Set network for Hyper-V machines
-    config.vm.network "public_network"
-    config.vm.synced_folder ".", "/vagrant", type: "smb"
+    config.vm.network 'public_network'
+    config.vm.synced_folder '.', '/vagrant', type: 'smb'
 
     node.vm.provider 'virtualbox' do |vb|
       vb.memory = '2048'
@@ -68,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.gui = false
     end
 
-    config.vm.provider "hyperv" do |hv|
+    config.vm.provider 'hyperv' do |hv|
       hv.memory = '4096'
       hv.cpus = '4'
       hv.enable_virtualization_extensions = true
@@ -83,7 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # If you have this problem with Ubuntu please change the
     # package manager to apt.
     #
-    # node.vm.provision 'shell', 
+    # node.vm.provision 'shell',
     #   inline: 'yum install -y cifs-utils'
 
     node.vm.provision 'ansible_local' do |ansible|
