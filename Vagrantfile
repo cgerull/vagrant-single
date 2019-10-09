@@ -26,23 +26,23 @@ VM_NAME = 'DevOps'.freeze
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 
 # CentOs
-BOX = 'centos/7'.freeze
-VM_PREFIX = 'centos'.freeze
+# BOX = 'centos/7'.freeze
+# VM_PREFIX = 'centos'.freeze
 
 # Ubuntu
-# BOX = 'ubuntu/bionic64'.freeze
-# VM_PREFIX = 'ubuntu'.freeze
+BOX = 'ubuntu/bionic64'.freeze
+VM_PREFIX = 'ubuntu'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
-# PROVIDER = 'VirtualBox'.freeze
-PROVIDER = 'hyperv'.freeze
+PROVIDER = 'VirtualBox'.freeze
+# PROVIDER = 'hyperv'.freeze
 
 #############################################################################
 # Start of vagrant setup_support_host
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Hostmanager settings
   # Enable Hostmanager when running on Hyper-V
-  config.hostmanager.enabled = true
+  config.hostmanager.enabled = false
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = true
