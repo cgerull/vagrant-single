@@ -34,15 +34,15 @@ VM_PREFIX = 'centos'.freeze
 # VM_PREFIX = 'ubuntu'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
-# PROVIDER = 'VirtualBox'.freeze
-PROVIDER = 'hyperv'.freeze
+PROVIDER = 'VirtualBox'.freeze
+# PROVIDER = 'hyperv'.freeze
 
 #############################################################################
 # Start of vagrant setup_support_host
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Hostmanager settings
   # Enable Hostmanager when running on Hyper-V
-  config.hostmanager.enabled = true
+  config.hostmanager.enabled = false
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = true
@@ -62,8 +62,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder '.', '/vagrant', type: 'smb'
 
     node.vm.provider 'virtualbox' do |vb|
-      vb.memory = '2048'
-      vb.cpus = '2'
+      vb.memory = '4096'
+      vb.cpus = '4'
       vb.name = "#{VM_PREFIX}-#{VM_NAME}"
       vb.gui = false
     end
