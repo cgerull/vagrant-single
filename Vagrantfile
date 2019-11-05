@@ -62,15 +62,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder '.', '/vagrant', type: 'smb'
 
     node.vm.provider 'virtualbox' do |vb|
-      vb.memory = '2048'
-      vb.cpus = '2'
+      vb.memory = '4096'
+      vb.cpus = '4'
       vb.name = "#{VM_PREFIX}-#{VM_NAME}"
       vb.gui = false
     end
 
     config.vm.provider 'hyperv' do |hv|
-      hv.memory = '4096'
-      hv.cpus = '4'
+      hv.memory = '8192'
+      hv.cpus = '6'
       hv.enable_virtualization_extensions = true
       hv.linked_clone = true
     end
