@@ -22,8 +22,8 @@ VAGRANTFILE_API_VERSION = '2'.freeze
 
 # If you have more machines use a descriptive name.
 VM_NAME = 'DevOps'.freeze
-
 VM_IP_ADDRESS = '192.168.56.100'.freeze
+USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
 # CentOs
 BOX = 'centos/7'.freeze
@@ -33,7 +33,8 @@ VM_PREFIX = 'centos'.freeze
 # BOX = 'ubuntu/bionic64'.freeze
 # VM_PREFIX = 'ubuntu'.freeze
 
-# On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
+# On Windows 10  Pro with Hyper-V use hyperv. The default in this
+# example uses VirtualBox.
 # PROVIDER = 'VirtualBox'.freeze
 PROVIDER = 'hyperv'.freeze
 
@@ -59,7 +60,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Set network for Hyper-V machines
     config.vm.network 'public_network'
-    config.vm.synced_folder '.', '/vagrant', type: 'smb'
+    config.vm.synced_folder '.', '/vagrant',
+                            type: 'smb',
+                            smb_username: USERNAME
 
     node.vm.provider 'virtualbox' do |vb|
       vb.memory = '4096'
