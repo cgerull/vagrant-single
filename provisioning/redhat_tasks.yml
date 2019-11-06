@@ -6,6 +6,18 @@
       yum:
         name: epel-release
         state: present
+    - name: Install basic network tools
+      yum:
+        name:
+          - net-tools
+          - telnet
+        state: present
+    - name: Install Ansible requirements
+      yum:
+        name:
+          - python2-PyMySQL
+          - python-requests
+        state: present
     - name: Add Docker CE repository (Fedora/CentOS/RedHat)
       become: true
       get_url:
