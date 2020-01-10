@@ -10,6 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install vagrant
-      run: apt-get install vagrant
+      run: sudo apt-get install vagrant
     - name: Validate Vagrantfile
-      run: vagrant validate
+      run: 
+        vagrant plugin install vagrant-hostmanager
+        vagrant validate
