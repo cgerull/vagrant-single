@@ -1,0 +1,52 @@
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: latest
+    - name: Install EPEL repository
+      yum:
+        name: epel-release
+        state: present
+    - name: Install basic network tools
+      yum:
+        name:
+          - net-tools
+          - telnet
+        state: present
+    - name: Install Ansible requirements
+      yum:
+        name:
+          - python2-PyMySQL
+          - python-requests
+        state: present
+    - name: Add Docker CE repository (Fedora/CentOS/RedHat)
+      become: true
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        mode: 0644
+    - name: Install IUS community repository
+      yum:
+        name: https://centos7.iuscommunity.org/ius-release.rpm
+        state: present
+    - name: Deinstall CentOS Git
+      yum:
+        name: git
+        state: absent
+    - name: Install recent Git version
+      yum:
+        name: git2u-all
+        state: present
+    - name: Install Docker
+      yum:
+        name: 
+          - docker-ce
+          - docker-compose
+        state: present
+      notify:
+        - start docker
+    - name: Ensure ntpd is installed
+      yum: 
+        name: ntp 
+        state: present
+      notify:
+      - restart ntpd
