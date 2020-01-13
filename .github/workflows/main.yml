@@ -13,5 +13,5 @@ jobs:
       run: sudo apt-get install vagrant
     - name: Validate Vagrantfile
       run: 
-        vagrant plugin install vagrant-hostmanager
+        vagrant plugin install vagrant-vbguest
         vagrant validate
