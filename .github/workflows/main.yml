@@ -9,8 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install vagrant
-      run: sudo apt-get install vagrant
+    - name: Install vagrant from hashicorp
+      run: 
+        wget -c https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+        sudo dpkg -i vagrant_2.2.6_x86_64.deb
     - name: Validate Vagrantfile
       run: 
         vagrant plugin install vagrant-vbguest
