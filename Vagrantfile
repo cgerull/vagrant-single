@@ -27,7 +27,7 @@ VM_NAME = 'DevOps'.freeze
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 
 # CentOs
-# BOX = 'centos/8'.freeze
+# BOX = 'centos/7'.freeze
 # VM_PREFIX = 'centos'.freeze
 
 # Ubuntu
