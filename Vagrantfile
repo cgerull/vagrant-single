@@ -30,9 +30,13 @@ VM_IP_ADDRESS = '192.168.56.100'.freeze
 # BOX = 'centos/7'.freeze
 # VM_PREFIX = 'centos'.freeze
 
-# Ubuntu
-BOX = 'ubuntu/bionic64'.freeze
-VM_PREFIX = 'ubuntu'.freeze
+# # Ubuntu Bionic
+# BOX = 'ubuntu/bionic64'.freeze
+# VM_PREFIX = 'ubuntu'.freeze
+
+# Debian Buster
+BOX = 'bento/debian-10.1'.freeze
+VM_PREFIX = 'debian'.freeze
 
 # On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
 PROVIDER = 'VirtualBox'.freeze
