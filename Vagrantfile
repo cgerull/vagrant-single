@@ -27,8 +27,8 @@ VM_IP_ADDRESS = '192.168.56.100'.freeze
 USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
 # CentOs
-# BOX = 'centos/7'.freeze
-# VM_PREFIX = 'centos'.freeze
+BOX = 'bento/centos-7.7'.freeze
+VM_PREFIX = 'centos'.freeze
 
 # # Ubuntu Bionic
 BOX = 'bento/ubuntu-18.04'.freeze
@@ -49,7 +49,7 @@ PROVIDER = 'hyperv'.freeze
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Hostmanager settings
   # Enable Hostmanager when running on Hyper-V
-  config.hostmanager.enabled = false
+  config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = true
@@ -97,7 +97,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #   inline: 'yum install -y cifs-utils'
 
     node.vm.provision 'ansible_local' do |ansible|
-      ansible.playbook = '/vagrant//provisioning/setup_devops.yml'
+      #ansible.inventory_path = "/vagrant/provisioning/vagrant.ini"
+      ansible.playbook = '/vagrant/provisioning/setup_devops.yml'
     end
   end
 end
