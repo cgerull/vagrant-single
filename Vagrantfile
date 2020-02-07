@@ -27,7 +27,7 @@ VM_NAME = 'DevOps'.freeze
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 
 # CentOs
-BOX = 'centos/8'.freeze
+BOX = 'bento/centos-7.7'.freeze
 VM_PREFIX = 'centos'.freeze
 
 # # Ubuntu
@@ -89,7 +89,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #   inline: 'yum install -y cifs-utils'
 
     node.vm.provision 'ansible_local' do |ansible|
-      ansible.playbook = '/vagrant//provisioning/setup_devops.yml'
+      #ansible.inventory_path = "/vagrant/provisioning/vagrant.ini"
+      ansible.playbook = '/vagrant/provisioning/setup_devops.yml'
     end
   end
 end
