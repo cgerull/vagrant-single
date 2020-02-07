@@ -23,8 +23,8 @@ VAGRANTFILE_API_VERSION = '2'.freeze
 
 # If you have more machines use a descriptive name.
 VM_NAME = 'DevOps'.freeze
-
 VM_IP_ADDRESS = '192.168.56.100'.freeze
+USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
 # CentOs
 # BOX = 'centos/7'.freeze
@@ -38,9 +38,11 @@ VM_PREFIX = 'ubuntu'.freeze
 # BOX = 'bento/debian-10.1'.freeze
 # VM_PREFIX = 'debian'.freeze
 
-# On Windows 10  Pro with Hyper-V use hyperv. This example uses VirtualBox.
-PROVIDER = 'VirtualBox'.freeze
-# PROVIDER = 'hyperv'.freeze
+
+# On Windows 10  Pro with Hyper-V use hyperv. The default in this
+# example uses VirtualBox.
+# PROVIDER = 'VirtualBox'.freeze
+PROVIDER = 'hyperv'.freeze
 
 #############################################################################
 # Start of vagrant setup_support_host
@@ -64,19 +66,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.provision :hosts, :sync_hosts => true
 
     # Set network for Hyper-V machines
-    # config.vm.network 'public_network'
-    # config.vm.synced_folder '.', '/vagrant', type: 'smb'
+    config.vm.network 'public_network'
+    config.vm.synced_folder '.', '/vagrant',
+                            type: 'smb',
+                            smb_username: USERNAME
 
     node.vm.provider 'virtualbox' do |vb|
-      vb.memory = '2048'
-      vb.cpus = '2'
+      vb.memory = '4096'
+      vb.cpus = '4'
       vb.name = "#{VM_PREFIX}-#{VM_NAME}"
       vb.gui = false
     end
 
-    node.vm.provider 'hyperv' do |hv|
-      hv.memory = '4096'
-      hv.cpus = '4'
+    config.vm.provider 'hyperv' do |hv|
+      hv.memory = '8192'
+      hv.cpus = '6'
       hv.enable_virtualization_extensions = true
       hv.linked_clone = true
     end
