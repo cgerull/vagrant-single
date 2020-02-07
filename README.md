@@ -31,12 +31,28 @@ plugin. The /etc/hosts sync can be done with vagrant-hosts.
 
 ### Hyper-V
 
-When using Hyper-V you need to an elevated command prompt. Run CMD as Administrator
- Start the machines with `vagrant up --provider=hyperv`
+When using Hyper-V you need to an elevated command prompt. Run
+the CMD window as Administrator and start the machines
+with `vagrant up --provider=hyperv`
 The /etc/hosts sync can be done with vagrant-hostmanager.
 
-## Operation system
+## Box Operation system
 
-You can change the OS to any supported box you need. In that case please change the setup scripts the example playbook according to you flavour of Linux.
+You can change the OS to any supported box you need. In that case please
+change the setup scripts in the example playbook according to you flavour
+of Linux.
 
-Default OS is CentOs 7.
+Currently tested and supplied are these boxes:
+
+- bento/centos-7.7
+- bento/ubuntu-18.04
+- bento/debian-10.1
+
+Comment / uncomment to change the box.
+
+Default OS is CentOS 7.7 on VirtualBox.
+
+## Provisioning
+
+A set base Ansible provision playbooks are supplied. If you want a vanilla
+box just comment out the provision section.
