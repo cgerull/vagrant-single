@@ -1,5 +1,9 @@
 .vagrant/
 .vscode/
+**/.bundle/
+**/.kitchen/
+**/vendor/
+**/Gemfile.lock
 *.replay
 *.org
 hosts*

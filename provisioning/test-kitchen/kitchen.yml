@@ -1,0 +1,33 @@
+---
+driver:
+  name: docker
+  use_sudo: true
+
+provisioner:
+  name: ansible_playbook
+  # hosts: test-kitchen
+  # ansible_verbose: false
+  # ansible_verbosity: 2
+  # require_ansible_repo: false
+  # require_ansible_omnibus: true
+  # require_chef_for_busser: false
+  # requirements_path: requirements.yml
+
+platforms:
+  # - name: ubuntu-18.04
+  - name: centos-7.7
+    driver_config:
+      provision_command:
+        - yum -y install iproute
+      forward:
+        - 8082:8082
+      image: ansible/centos7-ansible:stable
+      platform: centos
+
+suites:
+  - name: default
+    verifier:
+      patterns:
+        - roles/ansible-nexus/test/integration/default/serverspec/default_spec.rb
+      bundler_path: '/usr/local/bin'
+      rspec_path: '/usr/local/bin'
