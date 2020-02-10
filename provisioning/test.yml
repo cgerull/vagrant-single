@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  become: true
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: python3
+  tasks:
+  - debug:
+      msg: "{{ ansible_lsb.id }} - {{ ansible_lsb.codename }}"
+      #var: hostvars
+    when:
+      -  ansible_os_family  == "Debian"
+  - name: Install jsondiff
+    pip:
+      name: jsondiff
+      # extra_args: --user
+      state: absent
+  # - name: fetch protainer stack compose file
+  #   uri:
+  #     url: https://downloads.portainer.io/portainer-agent-stack.yml
+  #     dest: ./
+  # - name: Deploy stack from a compose file
+  #   docker_stack:
+  #     state: absent
+  #     name: portainer
+  #     compose:
+  #       - ./portainer-agent-stack.yml
+  - name: Add Portainer volume
+    docker_volume:
+      name: portainer_data
+      state: present
+  - name: Start Portainer on single Docker host
+    docker_container:
+      name: portainer
+      image: portainer/portainer
+      state: started
+      restart: yes
+      ports:
+        - "8000:8000"
+        - "9000:9000"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data

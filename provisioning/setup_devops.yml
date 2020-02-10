@@ -2,6 +2,9 @@
 - hosts: all
   become: true
   gather_facts: true
+  vars:
+    nfs_exports: 
+      - "/var/nfs_volume *(rw,sync,no_root_squash)"
   tasks:
     - name: Include RedHat / CentOS specific tasks
       include_tasks: redhat_tasks.yml
@@ -11,6 +14,13 @@
       include_tasks: debian_tasks.yml
       when:
         - ansible_os_family == "Debian"
+    - name: Create NFS share
+      file:
+        path: /var/nfs_volume
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
   handlers:
     - name: restart ntpd
       service:
@@ -19,5 +29,10 @@
     - name: start docker
       service:
         name: docker
+        state: started
+        enabled: yes
+    - name: start nfs
+      service:
+        name: nfs
         state: started
         enabled: yes

@@ -12,11 +12,26 @@
           - net-tools
           - telnet
         state: present
+    - name: Set /etc/exports
+      template:
+        src: ./exports.j2
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Install NFS
+      yum:
+        name:
+          - nfs-utils
+          # - rpc-bind
+        state: present
+      notify:
+        - start nfs
     - name: Install Ansible requirements
       yum:
         name:
-          - python2-PyMySQL
-          - python-requests
+          - python3-PyMySQL
+          - python3-requests
         state: present
     - name: Add Docker CE repository (Fedora/CentOS/RedHat)
       become: true
