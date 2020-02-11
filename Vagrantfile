@@ -7,12 +7,13 @@
 # and testing for DevOps tooling.
 #
 # This Vagrant file is suitable for VirtualBox and
-# Hyper-V. The preconfigured Linux VM is Centos 7
-# or Ubuntu 18.04. Please enable the approbiate
+# Hyper-V. The preconfigured Linux VM's are Centos 7,
+# Ubuntu 18.04 and Debian 10.1. Please enable the approbiate
 # sections.
 #
-# When using Hyper-V you need to an elevated command prompt. Run CMD
+# When using Hyper-V you need an elevated command prompt. Run CMD
 # as Administrator.
+#
 # Start the machines with vagrant up --provider=hyperv
 ###
 
@@ -26,24 +27,29 @@ VM_IP_ADDRESS = '192.168.56.100'.freeze
 USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
 # CentOs
-BOX = 'centos/7'.freeze
+BOX = 'bento/centos-7.7'.freeze
 VM_PREFIX = 'centos'.freeze
 
-# Ubuntu
-# BOX = 'ubuntu/bionic64'.freeze
+# Ubuntu Bionic
+# BOX = 'bento/ubuntu-18.04'.freeze
 # VM_PREFIX = 'ubuntu'.freeze
+
+# Debian Buster
+# BOX = 'bento/debian-10.1'.freeze
+# VM_PREFIX = 'debian'.freeze
+
 
 # On Windows 10  Pro with Hyper-V use hyperv. The default in this
 # example uses VirtualBox.
-# PROVIDER = 'VirtualBox'.freeze
-PROVIDER = 'hyperv'.freeze
+PROVIDER = 'VirtualBox'.freeze
+# PROVIDER = 'hyperv'.freeze
 
 #############################################################################
 # Start of vagrant setup_support_host
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Hostmanager settings
   # Enable Hostmanager when running on Hyper-V
-  config.hostmanager.enabled = true
+  config.hostmanager.enabled = false
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = true
@@ -55,14 +61,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.hostname = "#{VM_PREFIX}-#{VM_NAME}"
 
     # Set network for VirtualBox machines
-    # node.vm.network 'private_network', ip: VM_IP_ADDRESS.to_s
-    # node.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
+    node.vm.network 'private_network', ip: VM_IP_ADDRESS.to_s
+    node.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
+    node.vm.provision :hosts, :sync_hosts => true
 
     # Set network for Hyper-V machines
-    config.vm.network 'public_network'
-    config.vm.synced_folder '..', '/vagrant',
-                            type: 'smb',
-                            smb_username: USERNAME
+    # config.vm.network 'public_network'
+    # config.vm.synced_folder '.', '/vagrant',
+    #                         type: 'smb',
+    #                         smb_username: USERNAME
 
     node.vm.provider 'virtualbox' do |vb|
       vb.memory = '4096'
@@ -90,7 +97,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #   inline: 'yum install -y cifs-utils'
 
     node.vm.provision 'ansible_local' do |ansible|
-      ansible.playbook = '/vagrant//provisioning/setup_devops.yml'
+      ansible.playbook = '/vagrant/provisioning/setup_devops.yml'
     end
   end
 end
