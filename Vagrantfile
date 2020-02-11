@@ -60,7 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Set network for Hyper-V machines
     config.vm.network 'public_network'
-    config.vm.synced_folder '.', '/vagrant',
+    config.vm.synced_folder '..', '/vagrant',
                             type: 'smb',
                             smb_username: USERNAME
 
