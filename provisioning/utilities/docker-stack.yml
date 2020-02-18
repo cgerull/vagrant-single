@@ -13,6 +13,7 @@ version: "3.1"
 
 volumes:
   mdb_data:
+  portainer_data:
 
 services:
   rabbitmq:
@@ -45,3 +46,19 @@ services:
         limits:
           cpus: "1"
           memory: 1000M
+
+  portainer:
+    image: portainer/portainer:1.23.0
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
