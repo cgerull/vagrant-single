@@ -3,8 +3,8 @@
 #
 version: "3.1"
 # Don't use a named network now,
-# the default ingress network will do 
-# for the 2 services.
+# the default ingres network will do 
+# for the 3 services.
 #
 # networks:
 #   support-services:
