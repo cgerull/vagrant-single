@@ -22,7 +22,7 @@
 VAGRANTFILE_API_VERSION = '2'.freeze
 
 # If you have more machines use a descriptive name.
-VM_NAME = 'DevOps'.freeze
+VM_NAME = '<my-machine>'.freeze
 VM_IP_ADDRESS = '192.168.56.100'.freeze
 USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
