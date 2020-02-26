@@ -56,3 +56,15 @@ Default OS is CentOS 7.7 on VirtualBox.
 
 A set base Ansible provision playbooks are supplied. If you want a vanilla
 box just comment out the provision section.
+
+## Getting started
+
+- Download or clone this repository.
+- Edit the Vagrantfile
+  - Set the machine name
+  - Select your OS
+  - Select your hypervisor
+- Run ```vagrant up```
+- To stop run ```vagrant halt```
+
+More information about the operation of vagrant can be found at the [Vagrant documentation](https://www.vagrantup.com/docs/index.html) site.

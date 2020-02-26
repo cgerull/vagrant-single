@@ -1,0 +1,64 @@
+---
+# Start RabbitMQ and MariaDB in Docker swarm mode with resource limitations
+#
+version: "3.1"
+# Don't use a named network now,
+# the default ingres network will do 
+# for the 3 services.
+#
+# networks:
+#   support-services:
+#     - driver: overlay
+#     - ingress
+
+volumes:
+  mdb_data:
+  portainer_data:
+
+services:
+  rabbitmq:
+    image: cgerull/rbmq-image:latest
+    ports:
+      - 15672:15672/tcp
+      - 5672:5672/tcp
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1000M
+
+  mariadb:
+    image: cgerull/mariadb-image:latest
+    ports:
+      - 3306:3306/tcp
+    volumes:
+      - mdb_data:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=P@ssw0rd"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1000M
+
+  portainer:
+    image: portainer/portainer:1.23.0
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
