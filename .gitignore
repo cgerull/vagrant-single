@@ -2,6 +2,8 @@
 .vscode/
 *.replay
 *.org
+provisioning/test_playbooks/
+provisioning/utilities/
 hosts*
 **/*_rsa*
 **/*.log
