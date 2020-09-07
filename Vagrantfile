@@ -23,11 +23,11 @@ VAGRANTFILE_API_VERSION = '2'.freeze
 
 # If you have more machines use a descriptive name.
 VM_NAME = '<my-machine>'.freeze
-VM_IP_ADDRESS = '192.168.56.100'.freeze
+VM_IP_ADDRESS = '<preferred_ip_address'.freeze
 USERNAME = "#{ENV['USERNAME'] || `whoami`}".freeze
 
 # CentOs
-BOX = 'bento/centos-7.7'.freeze
+BOX = 'bento/centos-7.8'.freeze
 VM_PREFIX = 'centos'.freeze
 
 # Ubuntu Bionic

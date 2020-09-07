@@ -46,4 +46,5 @@
 - name: Add vagrant user to Docker group
   user:
     name: vagrant
-    groups: docker
+    groups: 
+      - docker

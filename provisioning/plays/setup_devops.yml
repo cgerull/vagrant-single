@@ -2,15 +2,23 @@
 - hosts: all
   become: true
   gather_facts: true
+  vars:
+    workspace: /home/vagrant
+    git_install_from_source: true
+    git_install_from_source_force_update: true
+    git_install_path: "/usr"
+    git_version: "2.26.0"
   tasks:
     - name: Include RedHat / CentOS specific tasks
-      include_tasks: redhat_tasks.yml
+      include_tasks: tasks/redhat_tasks.yml
       when:
         - ansible_os_family == "RedHat"
     - name: Include Debian / Ubuntu specific tasks
-      include_tasks: debian_tasks.yml
+      include_tasks: tasks/debian_tasks.yml
       when:
         - ansible_os_family == "Debian"
+  roles:
+    - { role: geerlingguy.git }
   handlers:
     - name: restart ntpd
       service:

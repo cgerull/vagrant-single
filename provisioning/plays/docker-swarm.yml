@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false"
+  tasks:
+    - name: Install python docker module
+      pip:
+        executable: /usr/bin/pip3
+        name: docker
+        state: present
+    - name: Init a new swarm with default parameters
+      docker_swarm:
+        state: present

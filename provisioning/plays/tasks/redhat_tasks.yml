@@ -6,6 +6,11 @@
       yum:
         name: epel-release
         state: present
+    - name: Upgrade installed packages
+      yum:
+        name: '*'
+        update_only: true
+        state: latest
     - name: Install basic network tools
       yum:
         name:
@@ -24,18 +29,18 @@
         url: https://download.docker.com/linux/centos/docker-ce.repo
         dest: /etc/yum.repos.d/docker-ce.repo
         mode: 0644
-    - name: Install IUS community repository
-      yum:
-        name: https://centos7.iuscommunity.org/ius-release.rpm
-        state: present
-    - name: Deinstall CentOS Git
-      yum:
-        name: git
-        state: absent
-    - name: Install recent Git version
-      yum:
-        name: git2u-all
-        state: present
+    # - name: Install IUS community repository
+    #   yum:
+    #     name: http://dl.iuscommunity.org/pub/ius/stable/Redhat/7/x86_64/ius-release-1.0-13.ius.el7.noarch.rpm
+    #     state: present
+    # - name: Deinstall CentOS Git
+    #   yum:
+    #     name: git
+    #     state: absent
+    # - name: Install recent Git version
+    #   yum:
+    #     name: git2u-all
+    #     state: present
     - name: Install Docker
       yum:
         name: 
@@ -50,3 +55,12 @@
         state: present
       notify:
       - restart ntpd
+# *********************************************************
+# Personalizations
+#
+    - name: Install zsh
+      yum: 
+        name: zsh 
+        state: present
+      notify:
+      - configure zsh
